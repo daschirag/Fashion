@@ -1,0 +1,352 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 120 100% 50%;
+    --card: 0 0% 5%;
+    --card-foreground: 120 100% 50%;
+    --popover: 0 0% 5%;
+    --popover-foreground: 120 100% 50%;
+    --primary: 120 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 120 100% 50%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 120 100% 30%;
+    --accent: 300 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 0%;
+    --border: 120 100% 20%;
+    --input: 0 0% 10%;
+    --ring: 120 100% 50%;
+    --radius: 0;
+  }
+}
+
+body {
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  overflow-x: hidden;
+}
+
+/* Cyberpunk-inspired scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #00ff41;
+  border: 1px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00cc33;
+}
+
+/* Glitch animation */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
+  animation-timing-function: steps(2);
+  animation-play-state: paused;
+}
+
+.glitch:hover {
+  animation-play-state: running;
+}
+
+/* Selection styling */
+::selection {
+  background-color: #00ff41;
+  color: #000000;
+}
+
+/* Fallback styles for canvas components */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scanline {
+  position: absolute;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(to bottom, rgba(0, 255, 65, 0) 0%, rgba(0, 255, 65, 0.2) 10%, rgba(0, 255, 65, 0.3) 100%);
+  opacity: 0.1;
+  animation: scanline 8s linear infinite;
+}
+
+/* VHS static effect */
+.vhs-static {
+  position: relative;
+  overflow: hidden;
+}
+
+.vhs-static::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.05;
+  z-index: 2;
+}
+
+/* Scan lines */
+.scan-lines {
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 1px,
+    rgba(0, 0, 0, 0.3) 1px,
+    rgba(0, 0, 0, 0.3) 2px
+  );
+  pointer-events: none;
+  opacity: 0.1;
+  z-index: 3;
+}
+
+/* Glitch text effect */
+.text-glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.text-glitch::before,
+.text-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.text-glitch::before {
+  color: #ff00ff;
+  z-index: -1;
+  animation: glitch-animation 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  animation-play-state: paused;
+}
+
+.text-glitch::after {
+  color: #00ffff;
+  z-index: -2;
+  animation: glitch-animation 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+  animation-play-state: paused;
+}
+
+.text-glitch:hover::before,
+.text-glitch:hover::after {
+  animation-play-state: running;
+}
+
+@keyframes glitch-animation {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+  }
+  60% {
+    transform: translate(2px, 2px);
+  }
+  80% {
+    transform: translate(2px, -2px);
+  }
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* 3D CSS Styles */
+.perspective {
+  perspective-origin: center;
+  perspective: 1000px;
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* 3D Text effect */
+.text-3d {
+  position: relative;
+  display: inline-block;
+}
+
+.text-3d-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* Hologram effect */
+@keyframes hologram-scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.hologram-scanline {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: rgba(0, 255, 255, 0.5);
+  animation: hologram-scanline 2s linear infinite;
+}
+
+@keyframes hologram-flicker {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  52% {
+    opacity: 0.9;
+  }
+  54% {
+    opacity: 0.7;
+  }
+  56% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hologram-flicker {
+  animation: hologram-flicker 4s infinite;
+}
+
+/* 3D Card effect */
+.card-3d {
+  transition: transform 0.3s ease;
+}
+
+.card-3d:hover {
+  transform: translateZ(20px);
+}
+
+/* 3D Parallax effect */
+.parallax-container {
+  overflow: hidden;
+  position: relative;
+}
+
+.parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.1s ease-out;
+}
+
+/* Reduced Motion Styles */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-shimmer,
+  .animate-particles,
+  .hologram-scanline,
+  .hologram-flicker,
+  .scanline,
+  .glitch,
+  .text-glitch::before,
+  .text-glitch::after {
+    animation: none !important;
+  }
+
+  .preserve-3d {
+    transform-style: flat !important;
+  }
+
+  .perspective {
+    perspective: none !important;
+  }
+}
+
+/* Reduced motion alternative styles */
+.reduced-motion-fade {
+  transition: opacity 0.5s ease-in-out !important;
+}
+
+.reduced-motion-border {
+  transition: border-color 0.5s ease-in-out !important;
+}
+
+.reduced-motion-color {
+  transition: color 0.5s ease-in-out !important;
+}
+
+.reduced-motion-bg {
+  transition: background-color 0.5s ease-in-out !important;
+}
